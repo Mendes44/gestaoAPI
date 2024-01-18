@@ -24,4 +24,10 @@ public class Cliente {
     private String cpf;
     @Column(name = "data_cadastro" )
     private LocalDate dataCadastro;
+
+    //PerPersist = Serve para quando for persistir o sistema cadastrar no banco de dados a data atual
+    @PrePersist
+    public void perPersist(){
+        setDataCadastro(LocalDate.now());
+    }
 }
