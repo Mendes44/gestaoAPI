@@ -38,18 +38,15 @@ public class ClienteController {
     }
 
     //Deletar atraves do ID
-    @DeleteMapping({"id"})
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletar( @PathVariable Long id ) {
-    /*Poderia apagar somente com uma linha de comando
-        repository.deleteById(id); //porem nao teria tratamento de execeções
-    */
+    public void deletar(@PathVariable Long id) {
         repository
                 .findById(id)
-                .map( cliente -> {
+                .map(cliente -> {
                     repository.delete(cliente);
-                    return Void.TYPE; //Mesmo nao voltando nada tenho que retornar o vazio
+                    return Void.TYPE;
                 })
-                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND) );
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 }
