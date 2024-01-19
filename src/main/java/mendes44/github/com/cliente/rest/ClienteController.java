@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Collections;
+
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
@@ -29,25 +31,25 @@ public class ClienteController {
     }
 
     @GetMapping("{id}")
-    public Cliente acharPorID ( @PathVariable Long id   ){
+    public Cliente acharPorID ( @PathVariable Long id ){
         return repository
                 .findById(id)
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND) );
     }
 
     //Deletar atraves do ID
-    @DeleteMapping
-    public void deletar( @PathVariable Long id ){
-
-        //Poderia apagar somente com uma linha de comando
-        //repository.deleteAllById(id); porem nao teria tratamento de execeções
-
-        repository.findById(id)
+    @DeleteMapping({"id"})
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletar( @PathVariable Long id ) {
+    /*Poderia apagar somente com uma linha de comando
+        repository.deleteById(id); //porem nao teria tratamento de execeções
+    */
+        repository
+                .findById(id)
                 .map( cliente -> {
                     repository.delete(cliente);
                     return Void.TYPE; //Mesmo nao voltando nada tenho que retornar o vazio
                 })
-                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND ));
+                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND) );
     }
-
 }
