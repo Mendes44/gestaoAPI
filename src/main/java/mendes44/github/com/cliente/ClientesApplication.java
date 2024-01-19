@@ -21,7 +21,7 @@ public class ClientesApplication {
 			 e injetar o codigo atraves do @Beans, assim posso testar a entrada no banco de dados.
 
 			 OBS: Lembrar de colocar essa anotação @Bean sempre apos o metodo run.
-	*/
+
 	//@Autowired ClienteRepository repository; > pode ser declarado assim tambem.
 	@Bean
 	public CommandLineRunner run(@Autowired ClienteRepository repository) {
@@ -29,6 +29,6 @@ public class ClientesApplication {
 			Cliente cliente = Cliente.builder().cpf("12345678912").nome("Teste").build();
 			repository.save(cliente);
 		};
-	}
+	}*/
 
 }
