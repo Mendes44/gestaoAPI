@@ -51,12 +51,14 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void atualizar(@PathVariable Long id, @RequestBody Cliente clienteAtualizado){
         repository
                 .findById(id)
                 .map( cliente -> {
-                    clienteAtualizado.setId(id);
+                   //Jeito de alterar somente o nome sem usar o updatable = false na entidade:
+                    cliente.setNome(clienteAtualizado.getNome());
+                    cliente.setCpf(clienteAtualizado.getCpf());
                     return repository.save( clienteAtualizado );
                 })
                 .orElseThrow(()  -> new ResponseStatusException(HttpStatus.NOT_FOUND));
