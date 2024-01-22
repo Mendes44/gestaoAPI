@@ -25,7 +25,7 @@ public class ClienteController {
     //Metodo que indica que busca atrasves do REST e Salva no banco de dados com status 201
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void salvar ( @Valid @RequestBody Cliente cliente){
+    public void salvar ( @Valid @RequestBody Cliente cliente ){
         repository.save(cliente);
     }
 
@@ -33,25 +33,25 @@ public class ClienteController {
     public Cliente acharPorID ( @PathVariable Long id ){
         return repository
                 .findById(id)
-                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND) );
+                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encotrado!") );
     }
 
     //Deletar atraves do ID
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletar(@PathVariable Long id) {
+    public void deletar( @PathVariable Long id ) {
         repository
                 .findById(id)
                 .map(cliente -> {
                     repository.delete(cliente);
                     return Void.TYPE;
                 })
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encotrado!"));
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizar(@PathVariable Long id, @RequestBody Cliente clienteAtualizado){
+    public void atualizar( @PathVariable Long id, @RequestBody @Valid Cliente clienteAtualizado ){
         repository
                 .findById(id)
                 .map( cliente -> {
@@ -60,6 +60,6 @@ public class ClienteController {
                     cliente.setCpf(clienteAtualizado.getCpf());
                     return repository.save( clienteAtualizado );
                 })
-                .orElseThrow(()  -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(()  -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encotrado!"));
     }
 }
