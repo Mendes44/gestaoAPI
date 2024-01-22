@@ -24,12 +24,12 @@ public class Cliente {
     private Long id;
 
     @Column(nullable = false, length = 150)
-    @NotEmpty //Anotação de validação: para não deixar o campo em branco
+    @NotEmpty(message = "{campo.nome.obrigatorio}") //Anotação de validação
     private String nome;
 
     @Column(nullable = false, length = 11)
-    @NotNull //Anotação para não deixar um valor null.
-    @CPF //Bin ja pronta para validação de CPF.
+    @NotNull(message = "{campo.cpf.obrigatorio}")
+    @CPF(message = "{campo.cpf.invalido}") //Bin ja pronta para validação de CPF.
     private String cpf;
 
     @Column(name = "data_cadastro", updatable = false )

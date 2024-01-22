@@ -1,6 +1,5 @@
 package mendes44.github.com.cliente.config;
 
-import org.springframework.cglib.core.Local;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +14,7 @@ public class InternacionalizacaoConfig {
     @Bean
     public MessageSource messageSource(){
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("messages");
+        messageSource.setBasename("classpath:messages");
         messageSource.setDefaultEncoding("ISO-8859-1"); //Para reconhecer padrão PT-BR
         messageSource.setDefaultLocale(Locale.getDefault() );
         return messageSource;
