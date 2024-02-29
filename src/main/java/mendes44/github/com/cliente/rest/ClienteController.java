@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/clientes")
+@CrossOrigin("http://localhost:4200")
 public class ClienteController {
 
     private final ClienteRepository repository;
@@ -25,14 +26,13 @@ public class ClienteController {
     //Metodo que indica que busca atrasves do REST e Salva no banco de dados com status 201
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void salvar ( @Valid @RequestBody Cliente cliente ){
-        repository.save(cliente);
+    public void salvar ( @Valid @RequestBody Cliente cliente ){ repository.save(cliente);
     }
 
     @GetMapping("{id}")
-    public Cliente acharPorID ( @PathVariable Long id ){
+    public Cliente acharPorID ( @PathVariable Integer id ){
         return repository
-                .findById(id)
+                .findById(Long.valueOf(id))
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encotrado!") );
     }
 

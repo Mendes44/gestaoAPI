@@ -21,15 +21,15 @@ public class Cliente {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false, length = 150)
     @NotEmpty(message = "{campo.nome.obrigatorio}") //Anotação de validação
     private String nome;
 
     @Column(nullable = false, length = 11)
-    @NotNull(message = "{campo.cpf.obrigatorio}")
     @CPF(message = "{campo.cpf.invalido}") //Bin ja pronta para validação de CPF.
+    @NotEmpty(message = "{campo.cpf.obrigatorio}")
     private String cpf;
 
     @Column(name = "data_cadastro", updatable = false )
