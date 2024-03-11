@@ -26,7 +26,9 @@ public class ClienteController {
     //Metodo que indica que busca atrasves do REST e Salva no banco de dados com status 201
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void salvar ( @Valid @RequestBody Cliente cliente ){ repository.save(cliente);
+    public  Cliente salvar ( @Valid @RequestBody Cliente cliente ){
+        Cliente clienteSalvo = repository.save(cliente);
+        return clienteSalvo;
     }
 
     @GetMapping("{id}")
