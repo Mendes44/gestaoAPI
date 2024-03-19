@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 
 
 @RestController
@@ -21,6 +22,12 @@ public class ClienteController {
     public ClienteController( ClienteRepository repository ){
 
         this.repository = repository;
+    }
+
+    //Obter Todos os Clientes
+    @GetMapping
+    public List<Cliente> getAll(){
+        return repository.findAll();
     }
 
     //Metodo que indica que busca atrasves do REST e Salva no banco de dados com status 201
