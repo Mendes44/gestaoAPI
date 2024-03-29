@@ -1,5 +1,6 @@
 package mendes44.github.com.cliente.rest;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mendes44.github.com.cliente.entity.Cliente;
 import mendes44.github.com.cliente.entity.ServicoPrestado;
@@ -18,7 +19,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/servicos-prestados")
-@CrossOrigin("http://localhost:4200")
 public class ServicoPrestadoController {
 
     public final ClienteRepository clienteRepository;
@@ -28,7 +28,7 @@ public class ServicoPrestadoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ServicoPrestado salvar (@RequestBody ServicoPrestadoDTO dto) {
+    public ServicoPrestado salvar (@Valid @RequestBody ServicoPrestadoDTO dto) {
         //Formatação da Data
         LocalDate data = LocalDate.parse(dto.getData(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         Long idCliente = dto.getIdCliente();
