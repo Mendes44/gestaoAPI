@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor //Criar sem parametro nenhum
+
+//Criação das Variaveis
 public class ServicoPrestadoDTO {
     private String descricao;
     private String preco;
